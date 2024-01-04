@@ -16,6 +16,7 @@
 
  use TV\trait\DB_Table as Transfer_Table;
  use TV\classes\Admin_Menu;
+ use TV\classes\Assets;
 
 //  directly access denied
  defined('ABSPATH') || exit;
@@ -56,6 +57,9 @@
 
         // initiate admin menu
         new Admin_Menu;
+
+        // enqueue scripts
+        new Assets;
         
     }
 
