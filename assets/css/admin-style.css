@@ -1,3 +1,6 @@
+:root{
+    --tv-color-wp-primary: #2271b1;
+}
 [class*="transfer-visitor-"] * {
     box-sizing: border-box;
 }
@@ -10,9 +13,114 @@
 .form-parent form,
 .form-parent .author-info {
 	width: 100%;
-    max-width: calc(100% - 335px);
+	padding: 25px;
+	background: white;
 }
+
 .form-parent .author-info {
     width: 100%;
-    max-width: 300px;
+}
+
+@media( min-width: 1032px ){
+    .form-parent form {
+        max-width: calc(100% - 335px);
+    }
+    .form-parent .author-info {
+        max-width: 300px;
+    }
+}
+
+[class*="transfer-visitor-"] .small {
+	display: block;
+	font-size: 85%;
+}
+
+[class*="transfer-visitor-"] .img-fluid{
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+[class*="transfer-visitor-"] .inner-title {
+	margin-top: 0;
+	padding: 15px;
+	background: #ecf0f1;
+    font-weight: 500;
+}
+[class*="transfer-visitor-"] .social a{
+    display: inline-flex;
+    height: 28px;
+    width: 28px;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border: 1px solid var(--tv-color-wp-primary);
+    border-radius: 4px;
+    text-decoration: none;
+}
+[class*="transfer-visitor-"] .social a:active,
+[class*="transfer-visitor-"] .social a:focus,
+[class*="transfer-visitor-"] .social a:hover{
+    background-color: var(--tv-color-wp-primary);
+    color: white;
+}
+
+
+@media ( min-width: 500px ) and ( max-width: 1032px ) {
+    [class*="transfer-visitor-"] .author-info-box {
+        display: flex;
+    }
+    .author-img-box{
+        width: 225px;
+        margin-right: 25px;
+    }
+    .author-detail {
+        width: calc(100% - 250px);
+    }
+    .author-name{
+        background-color: #ecf0f1;
+        margin: 0;
+        padding: 10px;
+    }
+}
+
+.hire-me {
+	display: inline-flex;
+    align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	padding: 7px 15px;
+	background-image: linear-gradient(to right bottom, #ff0000, #ff0053, #f60096, #bb00d4, #1252ff);
+	color: white !important;
+	font-weight: 600;
+	min-width: 170px;
+	font-size: 16px;
+	border-radius: 4px;
+    animation: color-slide 0.75s linear infinite;
+}
+.hire-me:hover{
+    animation: color-slide 0.75s linear infinite reverse;
+}
+.hire-me span {
+	margin-right: 10px;
+	margin-top: 1px;
+}
+@media (min-width: 1032px){
+    .hire-me{
+        width: 100%;
+        padding: 10px 15px;
+    }
+}
+@keyframes color-slide{
+    0%, 100%{
+        background-image: linear-gradient(to right bottom, #ff0000, #ff0053, #f60096, #bb00d4, #1252ff);
+    }
+    25%{
+        background-image: linear-gradient(to right bottom, #1252ff, #ff0000, #ff0053, #f60096, #bb00d4);
+    }
+    50%{
+        background-image: linear-gradient(to right bottom, #bb00d4, #1252ff, #ff0000, #ff0053, #f60096);
+    }
+    75%{
+        background-image: linear-gradient(to right bottom, #f60096, #bb00d4, #1252ff, #ff0000, #ff0053);
+    }
 }
