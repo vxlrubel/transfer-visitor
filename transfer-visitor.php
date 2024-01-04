@@ -15,6 +15,7 @@
  */
 
  use TV\trait\DB_Table as Transfer_Table;
+ use TV\classes\Admin_Menu;
 
 //  directly access denied
  defined('ABSPATH') || exit;
@@ -50,6 +51,9 @@
 
         // add link in action row
         add_filter( 'plugin_action_links', [ $this, 'add_action_links' ], 10, 2 );
+
+        // initiate admin menu
+        new Admin_Menu;
         
     }
 
