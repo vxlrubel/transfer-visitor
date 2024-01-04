@@ -33,6 +33,28 @@ class Admin_Menu{
             'dashicons-editor-ul',                        // icon
             25                                            //position
         );
+
+        add_submenu_page(
+            $this->slug_main_menu,                  // parent slug
+            __( 'All Items', 'transfer-visitor' ),  // page title
+            __( 'All Items', 'transfer-visitor' ),  // menu title
+            'manage_options',                       // capability
+            $this->slug_main_menu,                  // menu slug
+            [ $this, '_cb_list_page' ]              // callback
+        );
+
+        add_submenu_page(
+            $this->slug_main_menu,                // parent slug
+            __( 'Add New', 'transfer-visitor' ),  // page title
+            __( 'Add New', 'transfer-visitor' ),  // menu title
+            'manage_options',                     // capability
+            $this->slug_add_new,                  // menu slug
+            [ $this, '_cb_add_new_page' ]         // callback
+        );
+    }
+
+    public function _cb_add_new_page(){
+        printf('<div class="wrap">%s</div>', 'Add New page.');
     }
 
     /**
