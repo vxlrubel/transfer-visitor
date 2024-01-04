@@ -15,6 +15,10 @@
  */
 
 
+//  directly access denied
+ defined('ABSPATH') || exit;
+
+ 
 
  final class Transfer_Visitor{
 
