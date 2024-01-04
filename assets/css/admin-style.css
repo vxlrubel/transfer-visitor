@@ -1,0 +1,18 @@
+[class*="transfer-visitor-"] * {
+    box-sizing: border-box;
+}
+.form-parent {
+	display: flex;
+	flex-wrap: wrap;
+	justify-items: flex-start;
+    justify-content: space-between;
+}
+.form-parent form,
+.form-parent .author-info {
+	width: 100%;
+    max-width: calc(100% - 335px);
+}
+.form-parent .author-info {
+    width: 100%;
+    max-width: 300px;
+}
