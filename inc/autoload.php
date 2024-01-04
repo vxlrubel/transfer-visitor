@@ -7,6 +7,7 @@ $files = [
     'traits/db-table',
     'classes/class-admin-menu',
     'classes/class-template',
+    'classes/class-assets',
 ];
 
 foreach ( $files as $file ) {
