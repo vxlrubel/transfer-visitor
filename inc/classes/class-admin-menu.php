@@ -1,6 +1,7 @@
 <?php
 
 namespace TV\classes;
+use TV\trait\DB_Table as Transfer_Table;
 
 // derectly access denied
 defined('ABSPATH') || exit;
@@ -12,7 +13,7 @@ defined('ABSPATH') || exit;
  * @link https://github.com/vxlrubel
  */
 class Admin_Menu{
-    
+    use Transfer_Table;
     public function __construct(){
         add_action( 'admin_menu', [ $this, 'admin_menu' ] );
     }
@@ -26,11 +27,11 @@ class Admin_Menu{
         add_menu_page(
             __( 'Transfer Visitor', 'transfer-visitor' ), // page title
             __( 'Transfer Visitor', 'transfer-visitor' ), // menu title
-            'manage_options', // capability
-            'transfer-visitor', // menu slug
-            [ $this, '_cb_list_page' ], // callback
-            'dashicons-editor-ul', // icon
-            25 //position
+            'manage_options',                             // capability
+            $this->slug_main_menu,                        // menu slug
+            [ $this, '_cb_list_page' ],                   // callback function
+            'dashicons-editor-ul',                        // icon
+            25                                            //position
         );
     }
 
