@@ -18,7 +18,10 @@
 //  directly access denied
  defined('ABSPATH') || exit;
 
-
+//  include autoload file
+ if ( file_exists( dirname(__FILE__) . '/inc/autoload.php' ) ){
+    require_once dirname(__FILE__) . '/inc/autoload.php';
+ }
 
  final class Transfer_Visitor{
 
