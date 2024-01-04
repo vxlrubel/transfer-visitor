@@ -18,6 +18,9 @@ defined('ABSPATH') || exit;
     // table name
     private $db_table_name = 'transfer_visitor';
 
+    // admin main menu slug
+    protected $slug_main_menu = 'transfer-visitor';
+
     /**
      * get table name
      *
