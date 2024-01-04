@@ -120,7 +120,7 @@
      */
     public function check_wp_version(){
         if ( version_compare( get_bloginfo( 'version' ), '5.2', '<' ) ) {
-            add_action( 'admin_notice', [ $this, 'wp_version_notice' ] );
+            add_action( 'admin_notices', [ $this, 'wp_version_notice' ] );
         }
     }
 
