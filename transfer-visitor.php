@@ -58,7 +58,7 @@
      *
      * @param [type] $links
      * @param [type] $file
-     * @return void
+     * @return $links
      */
     public function add_action_links( $links, $file ){
         if ( plugin_basename( __FILE__ ) === $file ){
