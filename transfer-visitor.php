@@ -14,6 +14,7 @@
  * Domain Path:       /lang
  */
 
+ use TV\trait\DB_Table as Transfer_Table;
 
 //  directly access denied
  defined('ABSPATH') || exit;
@@ -24,6 +25,8 @@
  }
 
  final class Transfer_Visitor{
+
+    use Transfer_Table;
 
     // version
     private $version = '1.0';
@@ -54,7 +57,7 @@
      */
     public function activate_plugin(){
         global $wpdb;
-        $table = $wpdb->prefix . 'transfer_visitor';
+        $table = $this->get_table_name();
         $charset_collate = $wpdb->get_charset_collate();
 
         $sql = "CREATE TABLE IF NOT EXISTS $table(
