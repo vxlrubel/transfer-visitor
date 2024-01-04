@@ -47,7 +47,7 @@ defined('ABSPATH') || exit;
 
          <div class="form-parent">
             <form action="javascript:void(0)">
-
+               <h2>Insert new record</h2>
                <div class="field">
                   <label>
                      Redirection Name:
@@ -69,7 +69,7 @@ defined('ABSPATH') || exit;
                   </label>
                </div>
                <div class="field">
-                  <input type="submit" value="Save Changes" class="button button-primary">
+                  <input type="submit" value="Add New Record" class="button button-primary">
                </div>
             </form>
             <div class="author-info">
