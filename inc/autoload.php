@@ -5,6 +5,7 @@ defined('ABSPATH') || exit;
 
 $files = [
     'traits/db-table',
+    'classes/class-admin-menu',
 ];
 
 foreach ( $files as $file ) {
