@@ -21,6 +21,9 @@ defined('ABSPATH') || exit;
     // admin main menu slug
     protected $slug_main_menu = 'transfer-visitor';
 
+    // add new url slug
+    protected $slug_add_new = 'add-new-url';
+
     /**
      * get table name
      *
