@@ -67,7 +67,7 @@
     public function define_constant(){
         define( 'TV_VERSION', $this->version );
         define( 'TV_ASSETS', trailingslashit( plugins_url( 'assets', __FILE__ ) ) );
-        define( 'TV_ASSETS_IMG', trailingslashit( GV_ASSETS . 'img' ) );
+        define( 'TV_ASSETS_IMG', trailingslashit( TV_ASSETS . 'img' ) );
     }
 
     /**

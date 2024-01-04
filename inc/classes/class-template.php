@@ -76,7 +76,7 @@ defined('ABSPATH') || exit;
                <h2>Author Information</h2>
                <div class="author-info-box">
                   <div class="img-fluid">
-                     <img src="" alt="Rubel Mahmud (Sujan)">
+                     <img src="<?php echo TV_ASSETS_IMG . 'rubel-mahmud.jpg'; ?>" alt="Rubel Mahmud (Sujan)">
                   </div>
                   <div class="author-detail">
                      <h3>Rubel Mahmud (Sujan)</h3>
