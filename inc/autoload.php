@@ -4,13 +4,14 @@
 defined('ABSPATH') || exit;
 
 $files = [
-    'get-visitor-table',
+    'traits/db-table',
 ];
 
 foreach ( $files as $file ) {
     if( file_exists(  dirname( __FILE__ ) . '/' . $file . '.php' ) ){
         require_once dirname( __FILE__ ) . '/' . $file . '.php';
     }else{
-        throw new Exception("file not found {$file}", 1);
+        $not_found = dirname(__FILE__) . '/' . $file . '.php';
+        throw new Exception("file not found {$not_found}", 1);
     }
 }
