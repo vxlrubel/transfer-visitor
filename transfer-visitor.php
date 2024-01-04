@@ -40,6 +40,8 @@
      */
     public function __construct(){
 
+        // define constant
+        $this->define_constant();
         // check WordPress version
         add_action( 'admin_init', [ $this, 'check_wp_version' ] );
 
@@ -55,6 +57,17 @@
         // initiate admin menu
         new Admin_Menu;
         
+    }
+
+    /**
+     * define constant
+     *
+     * @return void
+     */
+    public function define_constant(){
+        define( 'TV_VERSION', $this->version );
+        define( 'TV_ASSETS', trailingslashit( plugins_url( 'assets', __FILE__ ) ) );
+        define( 'TV_ASSETS_IMG', trailingslashit( GV_ASSETS . 'img' ) );
     }
 
     /**
