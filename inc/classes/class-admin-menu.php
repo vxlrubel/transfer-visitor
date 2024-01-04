@@ -63,21 +63,21 @@ class Admin_Menu{
     }
 
     /**
-     * create add new page callback
-     *
-     * @return void
-     */
-    public function _cb_add_new_page(){
-        printf('<div class="wrap">%s</div>', 'Add New page.');
-    }
-
-    /**
      * create list page
      *
      * @return void
      */
     public function _cb_list_page(){
-        printf('<div class="wrap">%s</div>', 'list page');
+        Template::list_page();
+    }
+    
+    /**
+     * create add new page callback
+     *
+     * @return void
+     */
+    public function _cb_add_new_page(){
+        Template::add_new_page();
     }
 
     /**
@@ -86,6 +86,6 @@ class Admin_Menu{
      * @return void
      */
     public function _cb_options(){
-        printf('<div class="wrap">%s</div>', 'Options page');
+        Template::options_page();
     }
 }
