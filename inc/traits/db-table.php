@@ -24,6 +24,9 @@ defined('ABSPATH') || exit;
     // add new url slug
     protected $slug_add_new = 'add-new-url';
 
+    // add new slug for settings page
+    protected $slug_setting = 'transfer-visitor-options';
+
     /**
      * get table name
      *
