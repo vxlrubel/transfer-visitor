@@ -47,40 +47,45 @@ defined('ABSPATH') || exit;
 
          <div class="form-parent">
             <form action="javascript:void(0)">
-               <h2>Insert new record</h2>
-               <div class="field">
-                  <label>
-                     Redirection Name:
-                     <input type="text" class="widefat">
-                  </label>
-               </div>
-
-               <div class="field">
-                  <label>
-                     Old Url:
-                     <input type="url" class="widefat">
-                  </label>
-               </div>
-
-               <div class="field">
-                  <label>
-                     New Url:
-                     <input type="url" class="widefat">
-                  </label>
-               </div>
-               <div class="field">
+               <h2 class="inner-title">Insert new record</h2>
+               <table class="form-table" role="presentation">
+                  <tbody>
+                     <tr>
+                        <th><label for="redirection-name">Redirection Name:</label></th>
+                        <td>
+                           <input type="text" class="regular-text" id="redirection-name">
+                           <span class="small">Enter redirection name.</span>
+                        </td>
+                     </tr>
+                     <tr>
+                        <th><label for="old-url">Old URL:</label></th>
+                        <td>
+                           <input type="text" class="regular-text" id="old-url">
+                           <span class="small">Enter old url which will be redireted.</span>
+                        </td>
+                     </tr>
+                     <tr>
+                        <th><label for="new-url">New URL:</label></th>
+                        <td>
+                           <input type="text" class="regular-text" id="new-url">
+                           <span class="small">Enter url url where will be redirect.</span>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+               <p class="submit">
                   <input type="submit" value="Add New Record" class="button button-primary">
-               </div>
+               </p>
             </form>
             <div class="author-info">
-               <h2>Author Information</h2>
+               <h2 class="inner-title">Author Information</h2>
                <div class="author-info-box">
-                  <div class="img-fluid">
-                     <img src="<?php echo TV_ASSETS_IMG . 'rubel-mahmud.jpg'; ?>" alt="Rubel Mahmud (Sujan)">
+                  <div class="author-img-box">
+                     <img src="<?php echo TV_ASSETS_IMG . 'rubel-mahmud.jpg'; ?>" class="img-fluid" alt="Rubel Mahmud (Sujan)">
                   </div>
                   <div class="author-detail">
-                     <h3>Rubel Mahmud (Sujan)</h3>
-                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio odio voluptas, natus molestiae dolore debitis?</p>
+                     <h3 class="author-name">Rubel Mahmud (Sujan)</h3>
+                     <p>Hi, I am a professional WordPress developer. I have created so many plugins and themes for my clients. If you like my plugin then hire me for your project.</p>
                      <h4>Social Share</h4>
                      <div class="social">
                         <a href="https://www.facebook.com/rubel.ft.me" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
@@ -90,6 +95,9 @@ defined('ABSPATH') || exit;
                         <a href="https://www.reddit.com/user/vxlrubel" target="_blank"><span class="dashicons dashicons-reddit"></span></a>
                         <a href="https://api.whatsapp.com/send?phone=8801625601619&text=Hi, Rubel!" target="_blank"><span class="dashicons dashicons-whatsapp"></span></a>
                      </div>
+                     <p>
+                        <a href="https://api.whatsapp.com/send?phone=8801625601619&text=Hi, Mr. Rubel!" target="_blank" class="hire-me"><span class="dashicons dashicons-phone"></span> Hire Me</a>
+                     </p>
                   </div>
                </div>
             </div>
