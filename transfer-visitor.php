@@ -18,7 +18,7 @@
 //  directly access denied
  defined('ABSPATH') || exit;
 
- 
+
 
  final class Transfer_Visitor{
 
@@ -38,6 +38,35 @@
 
         // load text domain
         add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+
+        register_activation_hook( __FILE__, [ $this, 'activate_plugin' ] );
+        
+    }
+
+    /**
+     * activate plugin
+     * create a custom table called transfer_visitor
+     *
+     * @return void
+     */
+    public function activate_plugin(){
+        global $wpdb;
+        $table = $wpdb->prefix . 'transfer_visitor';
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE IF NOT EXISTS $table(
+            ID mediumint(9) NOT NULL AUTO_INCREMENT,
+            name VARCHAR(255),
+            old_url VARCHAR(255),
+            new_url VARCHAR(255),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY  (ID)
+        ) $charset_collate;";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+        dbDelta( $sql );
         
     }
 
