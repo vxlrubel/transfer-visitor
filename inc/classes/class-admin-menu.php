@@ -51,8 +51,22 @@ class Admin_Menu{
             $this->slug_add_new,                  // menu slug
             [ $this, '_cb_add_new_page' ]         // callback
         );
+
+        add_submenu_page(
+            $this->slug_main_menu,                // parent slug
+            __( 'Options', 'transfer-visitor' ),  // page title
+            __( 'Options', 'transfer-visitor' ),  // menu title
+            'manage_options',                     // capability
+            $this->slug_setting,                  // menu slug
+            [ $this, '_cb_options' ]              // callback
+        );
     }
 
+    /**
+     * create add new page callback
+     *
+     * @return void
+     */
     public function _cb_add_new_page(){
         printf('<div class="wrap">%s</div>', 'Add New page.');
     }
@@ -63,6 +77,15 @@ class Admin_Menu{
      * @return void
      */
     public function _cb_list_page(){
-        printf('<div class="wrap">%s</div>', 'hello world');
+        printf('<div class="wrap">%s</div>', 'list page');
+    }
+
+    /**
+     * options page callback
+     *
+     * @return void
+     */
+    public function _cb_options(){
+        printf('<div class="wrap">%s</div>', 'Options page');
     }
 }
