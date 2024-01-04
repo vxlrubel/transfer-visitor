@@ -45,8 +45,32 @@
         // load text domain
         add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
 
+        // activate plugin
         register_activation_hook( __FILE__, [ $this, 'activate_plugin' ] );
+
+        // add link in action row
+        add_filter( 'plugin_action_links', [ $this, 'add_action_links' ], 10, 2 );
         
+    }
+
+    /**
+     * add action link in plugins page
+     *
+     * @param [type] $links
+     * @param [type] $file
+     * @return void
+     */
+    public function add_action_links( $links, $file ){
+        if ( plugin_basename( __FILE__ ) === $file ){
+            $anchor_tag = sprintf(
+                '<a href="%1$s">%2$s</a>',
+                '#',
+                esc_html__( 'Settings', 'transfer-visitor' )
+            );
+            array_unshift( $links, $anchor_tag );
+        }
+
+        return $links;
     }
 
     /**
