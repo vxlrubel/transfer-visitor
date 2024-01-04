@@ -33,4 +33,13 @@ class Admin_Menu{
             25 //position
         );
     }
+
+    /**
+     * create list page
+     *
+     * @return void
+     */
+    public function _cb_list_page(){
+        printf('<div class="wrap">%s</div>', 'hello world');
+    }
 }
