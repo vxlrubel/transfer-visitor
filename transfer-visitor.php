@@ -55,12 +55,24 @@
         // add link in action row
         add_filter( 'plugin_action_links', [ $this, 'add_action_links' ], 10, 2 );
 
+        add_action( 'rest_api_init', [ $this, 'register_routes' ] );
+
         // initiate admin menu
         new Admin_Menu;
 
         // enqueue scripts
         new Assets;
         
+    }
+
+    /**
+     * register rest routes
+     *
+     * @return void
+     */
+    public function register_routes(){
+        $route = new API_Route_Register;
+        $route->register_routes();
     }
 
     /**
