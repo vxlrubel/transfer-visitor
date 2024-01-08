@@ -7,6 +7,7 @@ $files = [
     'traits/db-table',
     'classes/class-admin-menu',
     'classes/class-template',
+    'classes/class-tv-list-table',
     'classes/class-assets',
     'api/api-route-register',
 ];
