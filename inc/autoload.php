@@ -8,6 +8,7 @@ $files = [
     'classes/class-admin-menu',
     'classes/class-template',
     'classes/class-assets',
+    'api/api-route-register',
 ];
 
 foreach ( $files as $file ) {
