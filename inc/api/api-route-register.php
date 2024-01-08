@@ -16,6 +16,8 @@ defined('ABSPATH') || exit;
  */
 class API_Route_Register extends WP_REST_Controller {
     
+    use Transfer_Table;
+
     public function __construct(){
         $this->namespace = 'tv/v1';
         $this->rest_base = 'transfer-visitor';
@@ -70,6 +72,44 @@ class API_Route_Register extends WP_REST_Controller {
      * @return void
      */
     public function insert_item( $request ){
+        global $wpdb;
+        $table    = $this->get_table_name();
+        $params   = $request->get_params();
+        $name     = isset( $params['name'] ) ? sanitize_text_field( $params['name'] ) : '';
+        $old_url  = isset( $params['old_url'] ) ? esc_url( $params['old_url'] ) : '';
+        $new_url  = isset( $params['new_url'] ) ? esc_url( $params['new_url'] ) : '';
+
+        if( empty( $name ) ){
+            return rest_ensure_response( 'please insert name field.' );
+        }
+
+        if( empty( $old_url ) ){
+            return rest_ensure_response( 'please insert old url field.' );
+        }
+
+        if( empty( $new_url ) ){
+            return rest_ensure_response( 'please insert new url field.' );
+        }
+        
+        $existing_url = $wpdb->get_var( $wpdb->prepare( "SELECT old_url FROM $table WHERE old_url = %s", $old_url ) );
+
+        if ( $existing_url !== null ){
+            return rest_ensure_response( 'The old URL already exists in the table.' );
+        }
+        
+        $data = [
+            'name'    => $name,
+            'old_url' => $old_url,
+            'new_url' => $new_url,
+        ];
+
+        $result = $wpdb->insert( $table, $data );
+
+        if ( $result === false ){
+            return new WP_Error('failed_insert', 'insert failed', [ 'status' => 500 ] );
+        }
+
+        return rest_ensure_response( 'Successfully add a new record.' );
         
     }
 
