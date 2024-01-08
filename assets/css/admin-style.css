@@ -124,3 +124,47 @@
         background-image: linear-gradient(to right bottom, #f60096, #bb00d4, #1252ff, #ff0000, #ff0053);
     }
 }
+[class*="transfer-visitor-"] .submit {
+	display: flex;
+	align-items: center;
+}
+.transfer-spin {
+    position: relative;
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	background: #1d2327;
+	margin-left: 15px;
+	border-radius: 50%;
+    animation: transfer-spin 0.75s linear infinite;
+}
+.transfer-spin::after{
+    position: absolute;
+    top: 2px;
+    left: calc(50% - 3px);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: white;
+    content: '';
+}
+
+@keyframes transfer-spin {
+    0%{
+        transform: rotate(0deg);
+    }100%{
+        transform: rotate(360deg);
+    }
+}
+
+.transfer-result {
+	display: inline-block;
+	margin-left: 10px;
+	background: #fff;
+	padding: 5px;
+	border-left: 2px solid #1d2327;
+}
+.transfer-result.success{
+    border-left-color: green;
+    color: green;
+}
