@@ -35,5 +35,13 @@ class Assets{
             TV_VERSION,                              // version
             true                                     // in footer
         );
+
+        $data_set = [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'rest_url' => home_url('/wp-json/transfer-visitor/v1/redirections'),
+            'nonce'    => wp_create_nonce( 'wp_rest' ),
+        ];
+        
+        wp_localize_script( 'tv-admin-script', 'redirections', $data_set );
     }
 }
