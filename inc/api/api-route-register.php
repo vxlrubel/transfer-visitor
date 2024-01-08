@@ -120,7 +120,14 @@ class API_Route_Register extends WP_REST_Controller {
      * @return void
      */
     public function get_items( $request ){
+        global $wpdb;
+        $table  = $this->get_table_name();
+        $params = $request->get_params();
+        $sql    = "SELECT * FROM $table ORDER BY ID DESC";
+        $result = $wpdb->get_results( $sql );
+        $params = $result;
         
+        return rest_ensure_response( $params );
     }
 
     /**
