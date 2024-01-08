@@ -60,14 +60,14 @@ defined('ABSPATH') || exit;
                      <tr>
                         <th><label for="old-url">Old URL:</label></th>
                         <td>
-                           <input type="text" class="regular-text" id="old-url">
+                           <input type="url" class="regular-text" id="old-url">
                            <span class="small">Enter old url which will be redireted.</span>
                         </td>
                      </tr>
                      <tr>
                         <th><label for="new-url">New URL:</label></th>
                         <td>
-                           <input type="text" class="regular-text" id="new-url">
+                           <input type="url" class="regular-text" id="new-url">
                            <span class="small">Enter url url where will be redirect.</span>
                         </td>
                      </tr>
