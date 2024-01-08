@@ -19,8 +19,8 @@ class API_Route_Register extends WP_REST_Controller {
     use Transfer_Table;
 
     public function __construct(){
-        $this->namespace = 'tv/v1';
-        $this->rest_base = 'transfer-visitor';
+        $this->namespace = 'transfer-visitor/v1';
+        $this->rest_base = 'redirections';
     }
 
     /**
