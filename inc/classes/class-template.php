@@ -74,7 +74,7 @@ defined('ABSPATH') || exit;
                   </tbody>
                </table>
                <p class="submit">
-                  <input type="submit" value="Add New Record" class="button button-primary">
+                  <input type="submit" value="Add New Record" class="button button-primary add-new-record">
                </p>
             </form>
             <div class="author-info">
