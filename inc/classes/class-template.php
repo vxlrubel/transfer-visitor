@@ -27,6 +27,13 @@ defined('ABSPATH') || exit;
       ?>
       <div class="wrap transfer-visitor-list">
          <h1 class="wp-heading-inline">list</h1>
+
+         <?php
+            $list_table = new TV_List_Table;
+            $list_table->prepare_items();
+            $list_table->display();
+         
+         ?>
       </div>
       <?php
     }
