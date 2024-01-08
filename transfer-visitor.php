@@ -17,6 +17,7 @@
  use TV\trait\DB_Table as Transfer_Table;
  use TV\classes\Admin_Menu;
  use TV\classes\Assets;
+ use TV\api\API_Route_Register;
 
 //  directly access denied
  defined('ABSPATH') || exit;
