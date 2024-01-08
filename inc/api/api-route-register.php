@@ -126,6 +126,10 @@ class API_Route_Register extends WP_REST_Controller {
         $sql    = "SELECT * FROM $table ORDER BY ID DESC";
         $result = $wpdb->get_results( $sql );
         $params = $result;
+
+        if ( count( $params ) < 1 ){
+            return rest_ensure_response( 'No result found.' );
+        }
         
         return rest_ensure_response( $params );
     }
