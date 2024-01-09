@@ -39,12 +39,13 @@ class TV_List_Table extends WP_List_Table{
      */
     public function prepare_items(){
         
-        $order_by = isset( $_GET['orderby'] ) ? trim( $_GET['orderby'] ) : 'ID';
-        $order    = isset( $_GET['order'] ) ? trim( $_GET['order'] ) : 'DESC';
+        $order_by    = isset( $_GET['orderby'] ) ? trim( $_GET['orderby'] ) : 'ID';
+        $order       = isset( $_GET['order'] ) ? trim( $_GET['order'] ) : 'DESC';
+        $search_term = isset( $_POST['s'] ) ? trim( $_POST['s'] ) : '';
 
         $get_columns        = $this->get_columns();
         $get_hidden_columns = $this->get_hidden_columns();
-        $data               = $this->get_items( $order_by, $order );
+        $data               = $this->get_items( $order_by, $order, $search_term );
         $sortable_columns   = $this->get_sortable_columns();
 
         // pagination
@@ -150,11 +151,16 @@ class TV_List_Table extends WP_List_Table{
      *
      * @return void
      */
-    public function get_items( $order_by, $order ){
+    public function get_items( $order_by, $order, $search_term ){
         global $wpdb;
         $response = '';
         $table    = $this->get_table_name();
         $sql      = "SELECT * FROM $table ORDER BY $order_by $order";
+
+        if( ! empty( $search_term ) ){
+            $sql = "SELECT * FROM $table WHERE name LIKE '%$search_term%' OR old_url LIKE '%$search_term%' OR new_url LIKE '%$search_term%'";
+        }
+        
         $result   = $wpdb->get_results( $sql, ARRAY_A );
         
         if ( $result > 0 ){
