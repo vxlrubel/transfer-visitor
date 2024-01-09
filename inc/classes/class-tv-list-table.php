@@ -222,4 +222,17 @@ class TV_List_Table extends WP_List_Table{
         return $items[ $column_name ];
     }
 
+    /**
+     * add bulk action
+     *
+     * @return void
+     */
+    public function get_bulk_actions(){
+        $actions = [
+            'delete' => 'Detete',
+        ];
+        return $actions;
+    }
+    
+
 }
