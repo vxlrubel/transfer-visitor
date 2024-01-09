@@ -57,16 +57,19 @@ defined('ABSPATH') || exit;
      * @return void
      */
     public static function add_new_page(){
+      $url = esc_url( admin_url( '/admin.php?page=transfer-visitor') );
       ?>
       <div class="wrap transfer-visitor-add-new">
          <div class="header">
-            <h1>Add New Redirection.</h1>
-            <a href="javascript:void(0)"> View List </a>
+            <h1 class="wp-heading-inline">Add New Redirection.</h1>
+            <a href="<?php echo $url; ?>" class="page-title-action">
+               <span class="dashicons dashicons-welcome-view-site"></span> View List
+            </a>
          </div>
 
          <div class="form-parent">
             <form action="javascript:void(0)" class="form-add-new-record">
-               <h2 class="inner-title">Insert new record</h2>
+               <h2 class="inner-title"><span class="dashicons dashicons-editor-insertmore"></span>Insert New Record.</h2>
                <table class="form-table" role="presentation">
                   <tbody>
                      <tr>
