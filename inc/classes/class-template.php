@@ -96,30 +96,7 @@ defined('ABSPATH') || exit;
                   <input type="submit" value="Add New Record" class="button button-primary add-new-record">
                </p>
             </form>
-            <div class="author-info">
-               <h2 class="inner-title">Author Information</h2>
-               <div class="author-info-box">
-                  <div class="author-img-box">
-                     <img src="<?php echo TV_ASSETS_IMG . 'rubel-mahmud.jpg'; ?>" class="img-fluid" alt="Rubel Mahmud (Sujan)">
-                  </div>
-                  <div class="author-detail">
-                     <h3 class="author-name">Rubel Mahmud (Sujan)</h3>
-                     <p>Hi, I am a professional WordPress developer. I have created so many plugins and themes for my clients. If you like my plugin then hire me for your project.</p>
-                     <h4>Social Share</h4>
-                     <div class="social">
-                        <a href="https://www.facebook.com/rubel.ft.me" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
-                        <a href="https://www.linkedin.com/in/vxlrubel/" target="_blank"><span class="dashicons dashicons-linkedin"></span></a>
-                        <a href="https://twitter.com/vxlrubel" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
-                        <a href="https://www.instagram.com/vxlrubel/" target="_blank"><span class="dashicons dashicons-instagram"></span></a>
-                        <a href="https://www.reddit.com/user/vxlrubel" target="_blank"><span class="dashicons dashicons-reddit"></span></a>
-                        <a href="https://api.whatsapp.com/send?phone=8801625601619&text=Hi, Rubel!" target="_blank"><span class="dashicons dashicons-whatsapp"></span></a>
-                     </div>
-                     <p>
-                        <a href="https://api.whatsapp.com/send?phone=8801625601619&text=Hi, Mr. Rubel!" target="_blank" class="hire-me"><span class="dashicons dashicons-phone"></span> Hire Me</a>
-                     </p>
-                  </div>
-               </div>
-            </div>
+            <?php self::author_info(); ?>
          </div>
          
       </div>
@@ -134,6 +111,40 @@ defined('ABSPATH') || exit;
      */
     public static function options_page(){
       printf('<div class="wrap">%s</div>', 'Options page.');
+    }
+
+    /**
+     * author information
+     *
+     * @return void
+     */
+    private static function author_info(){
+      ?>
+         <div class="author-info">
+            <h2 class="inner-title">Author Information</h2>
+            <div class="author-info-box">
+               <div class="author-img-box">
+                  <img src="<?php echo TV_ASSETS_IMG . 'rubel-mahmud.jpg'; ?>" class="img-fluid" alt="Rubel Mahmud (Sujan)">
+               </div>
+               <div class="author-detail">
+                  <h3 class="author-name">Rubel Mahmud (Sujan)</h3>
+                  <p>Hi, I am a professional WordPress developer. I have created so many plugins and themes for my clients. If you like my plugin then hire me for your project.</p>
+                  <h4>Social Share</h4>
+                  <div class="social">
+                     <a href="https://www.facebook.com/rubel.ft.me" target="_blank"><span class="dashicons dashicons-facebook-alt"></span></a>
+                     <a href="https://www.linkedin.com/in/vxlrubel/" target="_blank"><span class="dashicons dashicons-linkedin"></span></a>
+                     <a href="https://twitter.com/vxlrubel" target="_blank"><span class="dashicons dashicons-twitter"></span></a>
+                     <a href="https://www.instagram.com/vxlrubel/" target="_blank"><span class="dashicons dashicons-instagram"></span></a>
+                     <a href="https://www.reddit.com/user/vxlrubel" target="_blank"><span class="dashicons dashicons-reddit"></span></a>
+                     <a href="https://api.whatsapp.com/send?phone=8801625601619&text=Hi, Rubel!" target="_blank"><span class="dashicons dashicons-whatsapp"></span></a>
+                  </div>
+                  <p>
+                     <a href="https://api.whatsapp.com/send?phone=8801625601619&text=Hi, Mr. Rubel!" target="_blank" class="hire-me"><span class="dashicons dashicons-phone"></span> Hire Me</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      <?php
     }
 
  }
