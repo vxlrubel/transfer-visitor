@@ -46,9 +46,21 @@ class TV_List_Table extends WP_List_Table{
         $get_hidden_columns = $this->get_hidden_columns();
         $data               = $this->get_items( $order_by, $order );
         $sortable_columns   = $this->get_sortable_columns();
+
+        // pagination
+        $items_per_page = 10;
+        $current_page   = $this->get_pagenum();
+        $total_items    = (int) count( $data );
+
+        $this->set_pagination_args([
+            'total_items' => $total_items,
+			'per_page'    => $items_per_page,
+        ]);
+
+        $trimed_data = array_slice( $data, ( $current_page - 1 ) * $items_per_page, $items_per_page );
         
         $this->_column_headers = [ $get_columns, $get_hidden_columns, $sortable_columns ];
-        $this->items = $data;
+        $this->items = $trimed_data;
     }
 
     /**
