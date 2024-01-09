@@ -36,6 +36,12 @@ defined('ABSPATH') || exit;
                '<h1 class="wp-heading-inline">%s</h1>',
                esc_html__( 'All Redirection Url', 'transfer-visitor' )
             );
+
+            printf(
+               '<a href="%1$s" class="page-title-action"><span class="dashicons dashicons-plus-alt"></span> %2$s</a>',
+               esc_url( admin_url( '/admin.php?page=add-new-url' ) ),
+               esc_html__( 'Add New Record', 'transfer-visitor' )
+            );
          ?>
 
          <form action="<?php echo esc_url( $action_url );?>" method="POST" name="transfer_visitor_search_form">
