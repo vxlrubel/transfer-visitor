@@ -11,7 +11,7 @@
         }
 
         insertItem(){
-            parent.on('submit', 'form', function(e){
+            parent.on('submit', 'form.form-add-new-record', function(e){
                 e.preventDefault();
                 let _this         = $(this);
                 let parentElement = $(this).closest('.wrap');
