@@ -24,16 +24,22 @@ defined('ABSPATH') || exit;
      * @return void
      */
     public static function list_page(){
+      $action_url = $_SERVER['PHP_SELF'] . '?page=transfer-visitor';
+      $list_table = new TV_List_Table;
+      $list_table->prepare_items();
+
       ?>
       <div class="wrap transfer-visitor-list">
          <h1 class="wp-heading-inline">list</h1>
 
+         <form action="<?php echo esc_url( $action_url );?>" method="POST" name="transfer_visitor_search_form">
+            <?php $list_table->search_box( 'Search', 'transfer_visitor_search_box' ); ?>
+         </form>
+
          <?php
-            $list_table = new TV_List_Table;
-            $list_table->prepare_items();
             $list_table->display();
-         
          ?>
+         
       </div>
       <?php
     }
