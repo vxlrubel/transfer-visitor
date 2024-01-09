@@ -1,7 +1,6 @@
 <?php
 
 namespace TV\classes;
-use TV\trait\DB_Table as Transfer_Table;
 
 // derectly access denied
 defined('ABSPATH') || exit;
@@ -15,7 +14,9 @@ defined('ABSPATH') || exit;
 
  class Template{
 
-   use Transfer_Table;
+   private static $add_new_url = 'admin.php?page=add-new-url';
+
+   private static $view_list_url = 'admin.php?page=transfer-visitor';
 
     /**
      * list page
@@ -39,7 +40,7 @@ defined('ABSPATH') || exit;
 
             printf(
                '<a href="%1$s" class="page-title-action"><span class="dashicons dashicons-plus-alt"></span> %2$s</a>',
-               esc_url( admin_url( '/admin.php?page=add-new-url' ) ),
+               esc_url( admin_url( '/' . self::$add_new_url ) ),
                esc_html__( 'Add New Record', 'transfer-visitor' )
             );
          ?>
@@ -63,12 +64,11 @@ defined('ABSPATH') || exit;
      * @return void
      */
     public static function add_new_page(){
-      $url = esc_url( admin_url( '/admin.php?page=transfer-visitor') );
       ?>
       <div class="wrap transfer-visitor-add-new">
          <div class="header">
             <h1 class="wp-heading-inline">Add New Redirection.</h1>
-            <a href="<?php echo $url; ?>" class="page-title-action">
+            <a href="<?php echo self::$view_list_url; ?>" class="page-title-action">
                <span class="dashicons dashicons-welcome-view-site"></span> View List
             </a>
          </div>
