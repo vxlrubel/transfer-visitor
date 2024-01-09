@@ -38,13 +38,32 @@ class TV_List_Table extends WP_List_Table{
      * @return void
      */
     public function prepare_items(){
+        
+        $order_by = isset( $_GET['orderby'] ) ? trim( $_GET['orderby'] ) : 'ID';
+        $order    = isset( $_GET['order'] ) ? trim( $_GET['order'] ) : 'DESC';
 
         $get_columns        = $this->get_columns();
         $get_hidden_columns = $this->get_hidden_columns();
-        $data               = $this->get_items();
+        $data               = $this->get_items( $order_by, $order );
+        $sortable_columns   = $this->get_sortable_columns();
         
-        $this->_column_headers = [ $get_columns, $get_hidden_columns ];
+        $this->_column_headers = [ $get_columns, $get_hidden_columns, $sortable_columns ];
         $this->items = $data;
+    }
+
+    /**
+     * get sortable columns
+     *
+     * @return void
+     */
+    public function get_sortable_columns(){
+        $sortable_columns = [
+            'name'    => [ 'name', false ],
+            'old_url' => [ 'old_url', false ],
+            'new_url' => [ 'new_url', false ],
+        ];
+
+        return $sortable_columns;
     }
 
     /**
@@ -119,13 +138,13 @@ class TV_List_Table extends WP_List_Table{
      *
      * @return void
      */
-    public function get_items(){
+    public function get_items( $order_by, $order ){
         global $wpdb;
         $response = '';
         $table    = $this->get_table_name();
-        $sql      = "SELECT * FROM $table ORDER BY ID DESC";
+        $sql      = "SELECT * FROM $table ORDER BY $order_by $order";
         $result   = $wpdb->get_results( $sql, ARRAY_A );
-
+        
         if ( $result > 0 ){
             $response = $result;
         }
