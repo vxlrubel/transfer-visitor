@@ -30,7 +30,7 @@ defined('ABSPATH') || exit;
 
       ?>
       <div class="wrap transfer-visitor-list">
-         <h1 class="wp-heading-inline">list</h1>
+         <h1 class="wp-heading-inline">All Redirection Url</h1>
 
          <form action="<?php echo esc_url( $action_url );?>" method="POST" name="transfer_visitor_search_form">
             <?php $list_table->search_box( 'Search', 'transfer_visitor_search_box' ); ?>
