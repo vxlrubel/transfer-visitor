@@ -7,8 +7,9 @@
 .form-parent {
 	display: flex;
 	flex-wrap: wrap;
-	justify-items: flex-start;
+	align-items: flex-start;
     justify-content: space-between;
+    margin-top: 25px;
 }
 .form-parent form,
 .form-parent .author-info {
@@ -167,4 +168,8 @@
 .transfer-result.success{
     border-left-color: green;
     color: green;
+}
+
+a.page-title-action span.dashicons {
+	margin-top: 4px;
 }
