@@ -39,7 +39,7 @@ defined('ABSPATH') || exit;
          <?php
             $list_table->display();
          ?>
-         
+
       </div>
       <?php
     }
@@ -59,7 +59,7 @@ defined('ABSPATH') || exit;
          </div>
 
          <div class="form-parent">
-            <form action="javascript:void(0)">
+            <form action="javascript:void(0)" class="form-add-new-record">
                <h2 class="inner-title">Insert new record</h2>
                <table class="form-table" role="presentation">
                   <tbody>
