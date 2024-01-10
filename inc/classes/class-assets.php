@@ -22,16 +22,21 @@ class Assets{
      * @return void
      */
     public function register_scripts(){
+        
+        wp_enqueue_style('jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
+
         wp_enqueue_style(
             'tv-admin-style',                  // handle
             TV_ASSETS . 'css/admin-style.css', // source
-            [],                                // deps
+            ['jquery-ui-css'],                 // deps
             TV_VERSION,                        // version
         );
+        
+
         wp_enqueue_script(
             'tv-admin-script',                       // handle
             TV_ASSETS . 'js/admin-script.js',        // source
-            ['jquery', 'jquery-ui-tabs'],            // deps
+            [ 'jquery', 'jquery-ui-core', 'jquery-ui-dialog' ],            // deps
             TV_VERSION,                              // version
             true                                     // in footer
         );
