@@ -8,6 +8,97 @@
     class TransferVisitor{
         constructor(){
             this.insertItem();
+            this.deleteItem();
+            this.editItem();
+        }
+
+        editItem(){
+            parent.on('click', 'a.transfer-visitor-edit', function(e){
+                e.preventDefault();
+                let _this  = $(this);
+                let id     = _this.data('id');
+                let name   = _this.closest('td').children('a').text();
+                let oldUrl = _this.closest('td').siblings('td.old_url').find('a').text();
+                let newUrl = _this.closest('td').siblings('td.new_url').find('a').text();
+                
+                _this.parents('body').append(`
+                    <div class="edit-item-${id}" title="Edit item - ${name}">
+                        <p>
+                            <label>Name:
+                                <input type="text" id="name-${id}" class="widefat">
+                            </label>
+                        </p>
+                        <p>
+                            <label>Old Url:
+                                <input type="url" id="old-url-${id}" class="widefat">
+                            </label>
+                        </p>
+                        <p>
+                            <label>New Url:
+                                <input type="url" id="new-url-${id}" class="widefat">
+                            </label>
+                        </p>
+                    </div>
+                `);
+
+                $(`.edit-item-${id}`).dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                      "Save Changes": function() {
+                        $( this ).dialog( "close" );
+                        
+                        // do something api request to delete
+                        $(`.edit-item-${id}`).remove();
+
+                      },
+                      Cancel: function() {
+                        $( this ).dialog( "close" );
+                        $(`.edit-item-${id}`).remove();
+                      }
+                    }
+                });
+
+            });
+        }
+        
+        deleteItem(){
+            parent.on('click', 'a.transfer-visitor-delete', function(e){
+                e.preventDefault();
+                let message = 'if click delete button then it will delete permanently.';
+                let id = $(this).data('id');
+                $(this).parents('body').append(`
+                    <div class="dialog-${id}" title="Are you sure to delete?">
+                        <p>${message}</p>
+                    </div>
+                `);
+
+                $(`.dialog-${id}`).dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 300,
+                    modal: true,
+                    buttons: {
+                      "Yes": function() {
+                        $( this ).dialog( "close" );
+                        
+                        // do something api request to delete
+                        $(`.dialog-${id}`).remove();
+
+                      },
+                      Cancel: function() {
+                        $( this ).dialog( "close" );
+                        $(`.dialog-${id}`).remove();
+                      }
+                    }
+                });
+
+                setTimeout( ()=>{
+                    $('#transferDelete').remove();
+                }, ( 1000 * 60 ) );
+            })
         }
 
         insertItem(){
