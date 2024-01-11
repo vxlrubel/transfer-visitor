@@ -56,7 +56,11 @@
         // add link in action row
         add_filter( 'plugin_action_links', [ $this, 'add_action_links' ], 10, 2 );
 
+        // register routes
         add_action( 'rest_api_init', [ $this, 'register_routes' ] );
+
+        // redirect url
+        add_action( 'template_redirect', [ $this, 'redirect_to' ] );
 
         // initiate admin menu
         new Admin_Menu;
@@ -64,6 +68,46 @@
         // enqueue scripts
         new Assets;
         
+    }
+
+    /**
+     * redirect url to 
+     *
+     * @return void
+     */
+    public function redirect_to(){
+        global $wpdb;
+        $table   = $this->get_table_name();
+        $sql     = "SELECT * FROM $table";
+        $results = $wpdb->get_results( $sql, ARRAY_A );
+        
+        if ( count( $results ) <= 0 ){
+            return;
+        }
+
+        foreach ( $results as $item ) {
+            $this->set_redirection( $item['old_url'], $item['new_url'] );
+        }
+
+    }
+
+    /**
+     * set redirection url
+     *
+     * @param [type] $old_url
+     * @param [type] $new_url
+     * @return void
+     */
+    protected function set_redirection( $old_url, $new_url ){
+        // dynamic protocol
+        $protocol    = is_ssl() ? 'https://' : 'http://';
+        $current_url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+        if ( $current_url === $old_url ){
+            wp_redirect( $new_url, 301 );
+            exit;
+        }
+
     }
 
     /**
