@@ -44,6 +44,7 @@
 
         // define constant
         $this->define_constant();
+        
         // check WordPress version
         add_action( 'admin_init', [ $this, 'check_wp_version' ] );
 
