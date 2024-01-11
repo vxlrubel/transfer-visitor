@@ -173,3 +173,59 @@
 a.page-title-action span.dashicons {
 	margin-top: 4px;
 }
+.transfer-popup {
+	position: fixed;
+	width: 300px;
+	height: auto;
+	left: calc(50% - 150px);
+	top: 150px;
+	border: 1px solid #dee2e6;
+	background: white;
+	z-index: 9999;
+    box-shadow: 0 5px 10px 0 #777;
+}
+
+.transfer-popup .popup-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px 20px;
+	background: #ecf0f1;
+}
+.transfer-popup .popup-header h2 {
+    margin: 0;
+}
+.transfer-popup .popup-header > span {
+	background-color: #fff;
+	padding: 2px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.transfer-popup .popup-body {
+	padding: 15px 20px;
+}
+
+.transfer-popup .popup-footer {
+	display: flex;
+	padding: 15px 20px;
+	align-items: center;
+	justify-content: flex-end;
+	background: #ecf0f1;;
+}
+
+.transfer-popup .popup-footer input[type="submit"],
+.transfer-popup .popup-footer button {
+	display: inline-flex;
+	padding: 5px 15px;
+	margin-left: 10px;
+	background: white;
+	outline: 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.transfer-popup[class*="edit-item-"] {
+	width: 400px;
+	left: calc(50% - 200px);
+}
