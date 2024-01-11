@@ -22,9 +22,7 @@ class Assets{
      * @return void
      */
     public function register_scripts(){
-        
-        wp_enqueue_style('jquery-ui-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
-
+        // enqueue style
         wp_enqueue_style(
             'tv-admin-style',                  // handle
             TV_ASSETS . 'css/admin-style.css', // source
@@ -32,13 +30,13 @@ class Assets{
             TV_VERSION,                        // version
         );
         
-
+        // enqueue javascript
         wp_enqueue_script(
-            'tv-admin-script',                       // handle
-            TV_ASSETS . 'js/admin-script.js',        // source
-            [ 'jquery', 'jquery-ui-core', 'jquery-ui-dialog' ],            // deps
-            TV_VERSION,                              // version
-            true                                     // in footer
+            'tv-admin-script',                 // handle
+            TV_ASSETS . 'js/admin-script.js',  // source
+            ['jquery'],                        // deps
+            TV_VERSION,                        // version
+            true                               // in footer
         );
 
         $data_set = [
