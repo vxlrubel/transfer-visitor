@@ -10,6 +10,18 @@
             this.insertItem();
             this.deleteItem();
             this.editItem();
+            this.closePopup();
+            this.changePopupName();
+        }
+
+        changePopupName(){
+            parent.on('keyup', '#change-name', function(e){
+                e.preventDefault();
+                let _this   = $(this);
+                let getName = _this.val();
+                let field   = _this.closest('.popup-body').siblings('.popup-header').find('span.get-name');
+                field.html(getName);
+            });
         }
 
         editItem(){
@@ -21,45 +33,36 @@
                 let oldUrl = _this.closest('td').siblings('td.old_url').find('a').text();
                 let newUrl = _this.closest('td').siblings('td.new_url').find('a').text();
                 
-                _this.parents('body').append(`
-                    <div class="edit-item-${id}" title="Edit item - ${name}">
-                        <p>
-                            <label>Name:
-                                <input type="text" id="name-${id}" class="widefat">
-                            </label>
-                        </p>
-                        <p>
-                            <label>Old Url:
-                                <input type="url" id="old-url-${id}" class="widefat">
-                            </label>
-                        </p>
-                        <p>
-                            <label>New Url:
-                                <input type="url" id="new-url-${id}" class="widefat">
-                            </label>
-                        </p>
-                    </div>
+                _this.closest('.wrap').append(`
+                    <form class="transfer-popup edit-item-${id}" action="javascript:void(0)">
+                        <div class="popup-header">
+                            <h2>Edit item - <span class="get-name">${name}</span></h2>
+                            <span data-transfer-dismisable="true"><span class="dashicons dashicons-no-alt"></span></span>
+                        </div>
+                        <div class="popup-body">
+                            <p>
+                                <label>Name:
+                                    <input type="text" value="${name}" class="widefat" id="change-name">
+                                </label>
+                            </p>
+                            <p>
+                                <label>Old Url:
+                                    <input type="url" value="${oldUrl}" class="widefat">
+                                </label>
+                            </p>
+                            <p>
+                                <label>New Url:
+                                    <input type="url" value="${newUrl}" class="widefat">
+                                </label>
+                            </p>
+                        </div>
+                        <div class="popup-footer">
+                            <input type="submit" value="Save Changes">
+                            <input type="hidden" value="${id}">
+                            <button type="button" data-transfer-dismisable="true">No</button>
+                        </div>
+                    </form>
                 `);
-
-                $(`.edit-item-${id}`).dialog({
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    buttons: {
-                      "Save Changes": function() {
-                        $( this ).dialog( "close" );
-                        
-                        // do something api request to delete
-                        $(`.edit-item-${id}`).remove();
-
-                      },
-                      Cancel: function() {
-                        $( this ).dialog( "close" );
-                        $(`.edit-item-${id}`).remove();
-                      }
-                    }
-                });
 
             });
         }
@@ -67,37 +70,34 @@
         deleteItem(){
             parent.on('click', 'a.transfer-visitor-delete', function(e){
                 e.preventDefault();
-                let message = 'if click delete button then it will delete permanently.';
-                let id = $(this).data('id');
-                $(this).parents('body').append(`
-                    <div class="dialog-${id}" title="Are you sure to delete?">
-                        <p>${message}</p>
+                let _this = $(this);
+                _this.closest('.wrap').append(`
+                    <div class="transfer-popup">
+                        <div class="popup-header">
+                            <h2>Are you sure?</h2>
+                            <span data-transfer-dismisable="true"><span class="dashicons dashicons-no-alt"></span></span>
+                        </div>
+                        <div class="popup-body">
+                            <span>
+                                If you click yes then the item will be delete permanently.
+                            </span>
+                        </div>
+                        <div class="popup-footer">
+                            <button type="button" id="1">Yes</button>
+                            <button type="button" data-transfer-dismisable="true">No</button>
+                        </div>
                     </div>
                 `);
+            })
+        }
 
-                $(`.dialog-${id}`).dialog({
-                    resizable: false,
-                    height: "auto",
-                    width: 300,
-                    modal: true,
-                    buttons: {
-                      "Yes": function() {
-                        $( this ).dialog( "close" );
-                        
-                        // do something api request to delete
-                        $(`.dialog-${id}`).remove();
-
-                      },
-                      Cancel: function() {
-                        $( this ).dialog( "close" );
-                        $(`.dialog-${id}`).remove();
-                      }
-                    }
-                });
-
-                setTimeout( ()=>{
-                    $('#transferDelete').remove();
-                }, ( 1000 * 60 ) );
+        closePopup(){
+            parent.on('click', '[data-transfer-dismisable="true"]', function(e){
+                e.preventDefault();
+                let _popup = $(this).closest('.transfer-popup');
+                _popup.fadeOut(300, ()=>{
+                    _popup.remove();
+                })
             })
         }
 
