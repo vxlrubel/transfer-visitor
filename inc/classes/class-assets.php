@@ -26,7 +26,7 @@ class Assets{
         wp_enqueue_style(
             'tv-admin-style',                  // handle
             TV_ASSETS . 'css/admin-style.css', // source
-            ['jquery-ui-css'],                 // deps
+            [],                                // deps
             TV_VERSION,                        // version
         );
         
