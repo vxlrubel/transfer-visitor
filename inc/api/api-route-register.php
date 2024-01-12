@@ -63,6 +63,19 @@ class API_Route_Register extends WP_REST_Controller {
                 ]
             ]
         );
+
+        // register route for multiple delete
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/drop-items',
+            [
+                [
+                    'methods'             => WP_REST_Server::DELETABLE,
+                    'callback'            => [ $this, 'multiple_delete_items' ],
+                    'permission_callback' => [ $this, 'check_permission' ]
+                ]
+            ]
+        );
     }
 
     /**
@@ -199,8 +212,40 @@ class API_Route_Register extends WP_REST_Controller {
         }
 
         return rest_ensure_response( 'Delete successfull.' );
+        
+    }
 
+    /**
+     * delete multiple items
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function multiple_delete_items( $request ){
+        global $wpdb;
+        $response = '';
+        $table    = $this->get_table_name();
+        $params   = $request->get_params();
+        $ids      = $params['ids'];
 
+        if ( count( $ids ) === 0 ){
+            return rest_ensure_response( 'Did not found deletable id' );
+        }
+
+        foreach ( $ids as $id ) {
+            $where_clause        = [ 'ID' => (int)$id ];
+            $where_clause_format = ['%s'];
+            $multiple_delete     = $wpdb->delete( $table, $where_clause, $where_clause_format );
+
+            if ( $multiple_delete === false ){
+                return new WP_Error( 'delete_failed', 'delete request is not valid.', [ 'status'=> 500 ] );
+            }
+
+            $response = 'delete successfull.';
+        }
+
+        return rest_ensure_response( $response );
+        
     }
 
     /**
