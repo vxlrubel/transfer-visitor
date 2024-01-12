@@ -64,7 +64,6 @@
                         </div>
                     </form>
                 `);
-
             });
         }
 
@@ -78,6 +77,7 @@
                 let editUrl = apiUrl + '/' + id;
 
                 let data = {
+                    id     : parseInt(id),
                     name   : _this.find('input#change-name').val(),
                     old_url: _this.find('input#old-url').val(),
                     new_url: _this.find('input#new-url').val(),
@@ -94,17 +94,23 @@
                     data      : JSON.stringify(data),
                     headers   : headers,
                     beforeSend: ()=>{
-                        console.log('loading...')
+                        submitButton.val('Updating...');
                     },
                     success   : (response)=>{
-                        console.log('processing...')
+                        if ( response ){
+                            submitButton.val( buttonText );
+                            _this.find('.popup-body').find( `.successful-notice` ).remove();
+                            _this.find('.popup-body').append( `<div class="popup-notice success">${response}</div>` )
+                        }
+                        
                     },
-                    success   : (error)=>{
-                        console.log('something went wrong.')
+                    error     : (error)=>{
+                        if (error){
+                            _this.find('.popup-body').find( `.successful-notice` ).remove();
+                            _this.find('.popup-body').append( `<div class="popup-notice warning">Something went wrong.</div>` )
+                        }
                     }
                 });
-                
-                console.log(data)
 
             });
         }
