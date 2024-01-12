@@ -95,7 +95,7 @@ class TV_List_Table extends WP_List_Table{
         $delete = sprintf(
             '<a href="javascript:void(0)" class="transfer-visitor-delete" data-id="%1$s">%2$s</a>',
             (int)$item['ID'],
-            esc_html__( 'Delete', 'transfer-visitor' )
+            esc_html__( 'Delete Permanently', 'transfer-visitor' )
         );
 
         $trash = sprintf(
@@ -103,12 +103,23 @@ class TV_List_Table extends WP_List_Table{
             esc_html__( 'Trash', 'transfer-visitor' )
         );
 
+        $restore = sprintf(
+            '<a href="javascript:void(0)" class="submit-restore">%s</a>',
+            esc_html__( 'Restore', 'transfer-visitor' )
+        );
+
         $action = [
             'edit'   => $edit,
-            'delete' => $delete,
             'trash'  => $trash,
         ];
 
+        if ( isset( $_GET['status'] ) && $_GET['status'] == 'trash' ){
+            $action['restore'] = $restore;
+            $action['delete']  = $delete;
+            unset( $action['edit'] );
+            unset( $action['trash'] );
+        }
+        
         $elements = sprintf(
             '<a href="javascript:void(0)"class="row-title" data-ajax-name="%3$s">%1$s</a> %2$s',
             $item['name'],
@@ -302,7 +313,7 @@ class TV_List_Table extends WP_List_Table{
         
         $count_trush  = sprintf(
             '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
-            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=trush' ) ),
+            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=trash' ) ),
             esc_attr( $trush_status ),
             esc_html( 'Trush' ),
             count( $result_all )
