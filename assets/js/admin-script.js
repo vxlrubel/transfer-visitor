@@ -103,7 +103,9 @@
                             _this.find('.popup-body').append( `<div class="popup-notice success">${response}</div>` );
                             _this.closest('.wrap').find(`a[data-ajax-name="${id}"]`).text( data.name );
                             _this.closest('.wrap').find(`a[data-ajax-old-url="${id}"]`).text( data.old_url );
+                            _this.closest('.wrap').find(`a[data-ajax-old-url="${id}"]`).attr( 'href', data.old_url );
                             _this.closest('.wrap').find(`a[data-ajax-new-url="${id}"]`).text( data.new_url );
+                            _this.closest('.wrap').find(`a[data-ajax-new-url="${id}"]`).attr( 'href', data.new_url );
                         }
                         
                     },
