@@ -256,4 +256,56 @@ class TV_List_Table extends WP_List_Table{
         return current_user_can( 'manage_options' );
     }
 
+    /**
+     * set view item count
+     *
+     * @return void
+     */
+    public function get_views(){
+        global $wpdb;
+        $table      = $this->get_table_name();
+        $sql        = "SELECT ID FROM $table";
+        $result_all = $wpdb->get_results( $sql, ARRAY_A );
+
+        $all_status    = 'current';
+        $active_status = 'active';
+        $trush_status  = 'trush';
+
+        if( isset( $_GET['status'] ) ){
+            $all_status    = $_GET['status'] == 'all' ? 'current' : '';
+            $active_status = $_GET['status'] == 'active' ? 'current' : '';
+            $trush_status  = $_GET['status'] == 'trush' ? 'current' : '';
+        }
+
+        $count_all  = sprintf(
+            '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
+            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=all' ) ),
+            esc_attr( $all_status ),
+            esc_html( 'All' ),
+            count( $result_all )
+        );
+
+        $count_active  = sprintf(
+            '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
+            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=active' ) ),
+            esc_attr( $active_status ),
+            esc_html( 'Active' ),
+            count( $result_all )
+        );
+        
+        $count_trush  = sprintf(
+            '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
+            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=trush' ) ),
+            esc_attr( $trush_status ),
+            esc_html( 'Trush' ),
+            count( $result_all )
+        );
+
+        return [
+            'all'    => $count_all,
+            'active' => $count_active,
+            'trush'  => $count_trush,
+        ];
+    }
+
 }
