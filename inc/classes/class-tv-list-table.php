@@ -42,10 +42,11 @@ class TV_List_Table extends WP_List_Table{
         $order_by    = isset( $_GET['orderby'] ) ? trim( $_GET['orderby'] ) : 'ID';
         $order       = isset( $_GET['order'] ) ? trim( $_GET['order'] ) : 'DESC';
         $search_term = isset( $_POST['s'] ) ? trim( $_POST['s'] ) : '';
+        $status      = isset( $_GET['status'] ) && $_GET['status'] == 'trash' ? trim( $_GET['status'] ) : 'publish';
 
         $get_columns        = $this->get_columns();
         $get_hidden_columns = $this->get_hidden_columns();
-        $data               = $this->get_items( $order_by, $order, $search_term );
+        $data               = $this->get_items( $status, $order_by, $order, $search_term );
         $sortable_columns   = $this->get_sortable_columns();
 
         // pagination
@@ -169,11 +170,11 @@ class TV_List_Table extends WP_List_Table{
      *
      * @return void
      */
-    public function get_items( $order_by, $order, $search_term ){
+    public function get_items( $status, $order_by, $order, $search_term ){
         global $wpdb;
         $response = '';
         $table    = $this->get_table_name();
-        $sql      = "SELECT * FROM $table ORDER BY $order_by $order";
+        $sql      = "SELECT * FROM $table WHERE status = '$status' ORDER BY $order_by $order";
 
         if( ! empty( $search_term ) ){
             $sql = "SELECT * FROM $table WHERE name LIKE '%$search_term%' OR old_url LIKE '%$search_term%' OR new_url LIKE '%$search_term%'";
@@ -281,48 +282,52 @@ class TV_List_Table extends WP_List_Table{
      */
     public function get_views(){
         global $wpdb;
-        $table      = $this->get_table_name();
-        $sql        = "SELECT ID FROM $table";
-        $result_all = $wpdb->get_results( $sql, ARRAY_A );
+        $table          = $this->get_table_name();
+        $sql_all        = "SELECT ID FROM $table";
+        $sql_publish    = "SELECT ID FROM $table WHERE status = 'publish'";
+        $sql_trash      = "SELECT ID FROM $table WHERE status = 'trash'";
+        $result_all     = $wpdb->get_results( $sql_all, ARRAY_A );
+        $result_publish = $wpdb->get_results( $sql_publish, ARRAY_A );
+        $result_trash   = $wpdb->get_results( $sql_trash, ARRAY_A );
 
-        $all_status    = 'current';
-        $active_status = 'active';
-        $trush_status  = 'trush';
+        $all_status     = 'current';
+        $publish_status = 'publish';
+        $trash_status   = 'trash';
 
         if( isset( $_GET['status'] ) ){
-            $all_status    = $_GET['status'] == 'all' ? 'current' : '';
-            $active_status = $_GET['status'] == 'active' ? 'current' : '';
-            $trush_status  = $_GET['status'] == 'trush' ? 'current' : '';
+            $all_status     = '';
+            $publish_status = $_GET['status'] == 'publish' ? 'current' : '';
+            $trash_status   = $_GET['status'] == 'trash' ? 'current' : '';
         }
 
         $count_all  = sprintf(
             '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
-            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=all' ) ),
+            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu ) ),
             esc_attr( $all_status ),
             esc_html( 'All' ),
             count( $result_all )
         );
 
-        $count_active  = sprintf(
+        $count_publish  = sprintf(
             '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
-            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=active' ) ),
-            esc_attr( $active_status ),
-            esc_html( 'Active' ),
-            count( $result_all )
+            esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=publish' ) ),
+            esc_attr( $publish_status ),
+            esc_html( 'Publish' ),
+            count( $result_publish )
         );
         
-        $count_trush  = sprintf(
+        $count_trash  = sprintf(
             '<a href="%1$s" class="%2$s">%3$s<span class="count">(%4$d)</span></a>',
             esc_url( admin_url( 'admin.php?page=' . $this->slug_main_menu . '&status=trash' ) ),
-            esc_attr( $trush_status ),
+            esc_attr( $trash_status ),
             esc_html( 'Trush' ),
-            count( $result_all )
+            count( $result_trash )
         );
 
         return [
             'all'    => $count_all,
-            'active' => $count_active,
-            'trush'  => $count_trush,
+            'active' => $count_publish,
+            'trush'  => $count_trash,
         ];
     }
 
