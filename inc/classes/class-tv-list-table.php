@@ -104,9 +104,10 @@ class TV_List_Table extends WP_List_Table{
         ];
 
         $elements = sprintf(
-            '<a href="javascript:void(0)"class="row-title">%1$s</a> %2$s',
+            '<a href="javascript:void(0)"class="row-title" data-ajax-name="%3$s">%1$s</a> %2$s',
             $item['name'],
-            $this->row_actions( $action )
+            $this->row_actions( $action ),
+            $item['ID']
         );
         
         return $elements;
@@ -121,7 +122,7 @@ class TV_List_Table extends WP_List_Table{
     public function column_old_url( $item ){
 
         $elements = sprintf(
-            '<a href="%1$s" class="row-title" data-id="%2$s" target="_blank">%1$s</a>',
+            '<a href="%1$s" class="row-title" data-id="%2$s" data-ajax-old-url="%2$s" target="_blank">%1$s</a>',
             $item['old_url'],
             $item['ID']
         );
@@ -138,7 +139,7 @@ class TV_List_Table extends WP_List_Table{
     public function column_new_url( $item ){
 
         $elements = sprintf(
-            '<a href="%1$s" class="row-title" data-id="%2$s" target="_blank">%1$s</a>',
+            '<a href="%1$s" class="row-title" data-id="%2$s" data-ajax-new-url="%2$s" target="_blank">%1$s</a>',
             $item['new_url'],
             $item['ID']
         );
