@@ -234,6 +234,18 @@ class TV_List_Table extends WP_List_Table{
         ];
         return $actions;
     }
+
+    /**
+     * add attributes in tr tag
+     *
+     * @param [type] $item
+     * @return void
+     */
+    public function single_row( $item ) {
+        echo "<tr class=\"transfer-visitor-item-id-{$item['ID']}\">";
+		$this->single_row_columns( $item );
+		echo '</tr>';
+	}
     
 
 }
