@@ -121,9 +121,11 @@
         }
         
         deleteItem(){
+            // open delete popup
             parent.on('click', 'a.transfer-visitor-delete', function(e){
                 e.preventDefault();
                 let _this = $(this);
+                let id    = _this.data('id');
                 _this.closest('.wrap').append(`
                     <div class="transfer-popup">
                         <div class="popup-header">
@@ -136,12 +138,58 @@
                             </span>
                         </div>
                         <div class="popup-footer">
-                            <button type="button" id="1">Yes</button>
+                            <button type="button" data-delete-item id="${id}">Yes</button>
                             <button type="button" data-transfer-dismisable="true">No</button>
                         </div>
                     </div>
                 `);
-            })
+            });
+            
+            // delete item
+            parent.on('click', 'button[data-delete-item]', function(e){
+                e.preventDefault();
+                let _this     = $(this);
+                let id        = _this.attr('id');
+                let popupBox  = _this.closest('.transfer-popup');
+                let deleteUrl = apiUrl + '/' + id;
+                let itemRow   = parent.find(`a[data-ajax-name="${id}"]`).closest('tr');
+                let data      = {
+                    id: parseInt( id )
+                }
+                let headers   = {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce'  : nonce
+                }
+
+                $.ajax({
+                    type      : 'DELETE',
+                    url       : deleteUrl,
+                    data      : JSON.stringify(data),
+                    headers   : headers,
+                    beforeSend: ()=>{
+                        _this.text('Deleting...');
+                    },
+                    success   : (response)=>{
+                        if ( response ){
+                            popupBox.fadeOut(100, ()=>{
+                                popupBox.remove();
+                            });
+
+                            itemRow.addClass('remove-from-list').fadeOut(300, ()=>{
+                                itemRow.remove();
+                            })
+                        }
+                    },
+                    error     : (error)=>{
+                        alert('Something went wrong.')
+                    }
+                });
+                
+                
+                
+            });
+
+
         }
 
         closePopup(){
