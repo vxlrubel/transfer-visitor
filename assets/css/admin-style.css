@@ -252,7 +252,7 @@ a.page-title-action span.dashicons {
 	left: calc(50% - 200px);
 }
 [class*="transfer-visitor-"] .remove-from-list{
-    background-color: #ff0053;
+    background-color: #ff0053 !important;
 }
 [class*="transfer-visitor-"] .remove-from-list * {
     color: white !important;
