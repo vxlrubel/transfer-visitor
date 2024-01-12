@@ -180,7 +180,27 @@ class API_Route_Register extends WP_REST_Controller {
      * @return void
      */
     public function delete_item( $request ){
-        
+        global $wpdb;
+        $response            = '';
+        $table               = $this->get_table_name();
+        $params              = $request->get_params();
+        $id                  = isset( $params['id'] ) ? (int)$params['id'] : '';
+        $where_clause        = [ 'ID' => $id ];
+        $where_clause_format = ['%s'];
+
+        if ( empty( $id ) ){
+            return rest_ensure_response( 'ID must required' );
+        }
+
+        $delete = $wpdb->delete( $table, $where_clause, $where_clause_format );
+
+        if ( $delete === false ){
+            return new WP_Error( 'delete_failed', 'unsuccefull to delete.', [ 'status'=> 500] );
+        }
+
+        return rest_ensure_response( 'Delete successfull.' );
+
+
     }
 
     /**
