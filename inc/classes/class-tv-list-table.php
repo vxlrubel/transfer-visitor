@@ -98,9 +98,15 @@ class TV_List_Table extends WP_List_Table{
             esc_html__( 'Delete', 'transfer-visitor' )
         );
 
+        $trash = sprintf(
+            '<a href="javascript:void(0)" class="submit-trush">%s</a>',
+            esc_html__( 'Trash', 'transfer-visitor' )
+        );
+
         $action = [
             'edit'   => $edit,
             'delete' => $delete,
+            'trash'  => $trash,
         ];
 
         $elements = sprintf(
