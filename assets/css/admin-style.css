@@ -178,7 +178,7 @@ a.page-title-action span.dashicons {
 	width: 300px;
 	height: auto;
 	left: calc(50% - 150px);
-	top: 150px;
+	top: 100px;
 	border: 1px solid #dee2e6;
 	background: white;
 	z-index: 9999;
@@ -220,7 +220,7 @@ a.page-title-action span.dashicons {
 	margin-left: 10px;
 	background: white;
 	outline: 0;
-	border: none;
+	border: 1px solid #dee2e6;
 	border-radius: 4px;
 	cursor: pointer;
 }
