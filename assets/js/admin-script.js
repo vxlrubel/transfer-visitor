@@ -9,7 +9,8 @@
         constructor(){
             this.insertItem();
             this.deleteItem();
-            this.editItem();
+            this.openEditPopup();
+            this.editItemFromPopup();
             this.closePopup();
             this.changePopupName();
         }
@@ -24,7 +25,7 @@
             });
         }
 
-        editItem(){
+        openEditPopup(){
             parent.on('click', 'a.transfer-visitor-edit', function(e){
                 e.preventDefault();
                 let _this  = $(this);
@@ -47,22 +48,63 @@
                             </p>
                             <p>
                                 <label>Old Url:
-                                    <input type="url" value="${oldUrl}" class="widefat">
+                                    <input type="url" id="old-url" value="${oldUrl}" class="widefat">
                                 </label>
                             </p>
                             <p>
                                 <label>New Url:
-                                    <input type="url" value="${newUrl}" class="widefat">
+                                    <input type="url" id="new-url" value="${newUrl}" class="widefat">
                                 </label>
                             </p>
                         </div>
                         <div class="popup-footer">
                             <input type="submit" value="Save Changes">
-                            <input type="hidden" value="${id}">
+                            <input type="hidden" id="submit-id" value="${id}">
                             <button type="button" data-transfer-dismisable="true">No</button>
                         </div>
                     </form>
                 `);
+
+            });
+        }
+
+        editItemFromPopup(){
+            parent.on('submit', 'form.transfer-popup', function(e){
+                e.preventDefault();
+                let _this = $(this);
+                let submitButton = _this.find('input[type="submit"]');
+                let buttonText = submitButton.val();
+                let id = _this.find('input#submit-id').val();
+                let editUrl = apiUrl + '/' + id;
+
+                let data = {
+                    name   : _this.find('input#change-name').val(),
+                    old_url: _this.find('input#old-url').val(),
+                    new_url: _this.find('input#new-url').val(),
+                }
+
+                let headers = {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce'  : nonce
+                }
+
+                $.ajax({
+                    type      : 'POST',
+                    url       : editUrl,
+                    data      : JSON.stringify(data),
+                    headers   : headers,
+                    beforeSend: ()=>{
+                        console.log('loading...')
+                    },
+                    success   : (response)=>{
+                        console.log('processing...')
+                    },
+                    success   : (error)=>{
+                        console.log('something went wrong.')
+                    }
+                });
+                
+                console.log(data)
 
             });
         }
