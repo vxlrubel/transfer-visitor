@@ -53,7 +53,7 @@ class API_Route_Register extends WP_REST_Controller {
             [
                 [
                     'methods'             => WP_REST_Server::EDITABLE,
-                    'callback'            => [ $this, 'edit_item' ],
+                    'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_permission' ]
                 ],
                 [
@@ -135,13 +135,42 @@ class API_Route_Register extends WP_REST_Controller {
     }
 
     /**
-     * edit item using their id
+     * update item using their id
      *
      * @param [type] $request
      * @return void
      */
-    public function edit_item( $request ){
-        
+    public function update_item( $request ){
+        global $wpdb;
+        $response = '';
+        $table    = $this->get_table_name();
+        $params   = $request->get_params();
+        $id       = isset( $params['id'] ) ? (int)$params['id'] : '';
+        $name     = isset( $params['name'] ) ? sanitize_text_field( $params['name'] ) : '';
+        $old_url  = isset( $params['old_url'] ) ? esc_url( $params['old_url'] ) : '';
+        $new_url  = isset( $params['new_url'] ) ? esc_url( $params['new_url'] ) : '';
+
+        $data     = [
+            'name'    => $name,
+            'old_url' => $old_url,
+            'new_url' => $new_url,
+        ];
+
+        $data_format         = ['%s'];
+        $where_clause        = [ 'id' => $id ];
+        $where_clause_format = ['%s'];
+
+        if ( ! empty( $id ) && ! empty( $name ) && ! empty( $old_url ) && ! empty( $new_url ) ){
+            $result = $wpdb->update( $table, $data, $where_clause, $data_format, $where_clause_format );
+            if ( $result === false ){
+                $response = new WP_Error( 'failed_update', 'update failed', [ 'status' => 500 ] );
+            }
+            $response = 'Data update successfull.';
+        }else{
+            $response = 'Fill all fields currectly.';
+        }
+
+        return rest_ensure_response( $response );
     }
 
     /**
