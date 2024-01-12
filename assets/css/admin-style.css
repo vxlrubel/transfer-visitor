@@ -202,7 +202,29 @@ a.page-title-action span.dashicons {
 	cursor: pointer;
 }
 .transfer-popup .popup-body {
+    position: relative;
 	padding: 15px 20px;
+}
+.transfer-popup .popup-notice {
+	position: absolute;
+	padding: 5px 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	background: white;
+}
+
+.transfer-popup .popup-notice.success{
+    color: green;
+}
+.transfer-popup .popup-notice.warning{
+    color: #ff0053;
 }
 
 .transfer-popup .popup-footer {
