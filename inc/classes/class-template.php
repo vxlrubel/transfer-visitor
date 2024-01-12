@@ -43,6 +43,7 @@ defined('ABSPATH') || exit;
                esc_url( admin_url( '/' . self::$add_new_url ) ),
                esc_html__( 'Add New Record', 'transfer-visitor' )
             );
+            
          ?>
 
          <form action="<?php echo esc_url( $action_url );?>" method="POST" name="transfer_visitor_search_form">
@@ -50,6 +51,7 @@ defined('ABSPATH') || exit;
          </form>
 
          <?php
+            $list_table->views();
             $list_table->display();
          ?>
 
