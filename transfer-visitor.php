@@ -168,6 +168,7 @@
             name VARCHAR(255),
             old_url VARCHAR(255),
             new_url VARCHAR(255),
+            status VARCHAR(10) DEFAULT 'publish',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY  (ID)
