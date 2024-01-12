@@ -13,6 +13,61 @@
             this.editItemFromPopup();
             this.closePopup();
             this.changePopupName();
+            this.deleteMultipleItems();
+        }
+
+        deleteMultipleItems(){
+            parent.on('click', 'input#doaction[type="submit"]', function(e){
+                e.preventDefault();
+                let _this       = $(this);
+                let selfText    = _this.val();
+                let selectValue = _this.siblings('select#bulk-action-selector-top').val();
+                let items       = _this.closest('.wrap').find('input[name="transfer_visitor[]"]:checked');
+                let itemsValue  = items.map(
+                    function(){
+                        return this.value;
+                    }
+                ).get();
+
+                if ( 'delete' !== selectValue ){
+                    return;
+                }
+
+                if ( itemsValue === 0 ){
+                    return;
+                }
+
+                let multipleDeleteUrl = apiUrl + '/' + 'drop-items';
+                let headers = {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce'  : nonce
+                }
+
+                let data = {
+                    ids: itemsValue
+                }
+
+                $.ajax({
+                    type      : 'DELETE',
+                    url       : multipleDeleteUrl,
+                    data      : JSON.stringify( data ),
+                    headers   : headers,
+                    beforeSend: ()=>{
+                        _this.val('Deleting...');
+                    },
+                    success   : (response)=>{
+                        if ( response ){
+                            _this.val(selfText);
+                            items.closest('tr').addClass('remove-from-list').fadeOut(300, ()=>{
+                                items.closest('tr').remove();
+                            });
+                        }
+                    },
+                    error     : (error)=>{
+                        alert('Something went wrong');
+                    }
+                });
+            });
         }
 
         changePopupName(){
