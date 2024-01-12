@@ -247,5 +247,13 @@ class TV_List_Table extends WP_List_Table{
 		echo '</tr>';
 	}
     
+    /**
+     * check permission
+     *
+     * @return void
+     */
+    public function ajax_user_can(){
+        return current_user_can( 'manage_options' );
+    }
 
 }
