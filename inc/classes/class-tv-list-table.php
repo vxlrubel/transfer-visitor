@@ -242,7 +242,7 @@ class TV_List_Table extends WP_List_Table{
      * @return void
      */
     public function single_row( $item ) {
-        echo "<tr class=\"transfer-visitor-item-id-{$item['ID']}\">";
+        echo "<tr class=\"transfer_visitor-item-id-{$item['ID']}\">";
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}
