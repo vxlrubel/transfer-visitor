@@ -193,6 +193,7 @@ class TV_List_Table extends WP_List_Table{
             'name'       => __( 'Name', 'transfer-visitor' ),
             'old_url'    => __( 'Old Url', 'transfer-visitor' ),
             'new_url'    => __( 'New Url', 'transfer-visitor' ),
+            'status'     => __( 'Status', 'transfer-visitor' ),
             'created_at' => __( 'Create Date', 'transfer-visitor' ),
             'updated_at' => __( 'Update Date', 'transfer-visitor' ),
         ];
