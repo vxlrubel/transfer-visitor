@@ -80,7 +80,7 @@ class API_Route_Register extends WP_REST_Controller {
         // register route for moving to trash
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/' . 'trash',
+            '/' . $this->rest_base . '/' . 'trash' . '/(?P<id>[\d]+)',
             [
                 [
                     'methods'             => WP_REST_Server::EDITABLE,
