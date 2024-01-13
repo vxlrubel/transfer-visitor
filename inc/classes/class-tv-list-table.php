@@ -100,7 +100,8 @@ class TV_List_Table extends WP_List_Table{
         );
 
         $trash = sprintf(
-            '<a href="javascript:void(0)" class="submit-trush">%s</a>',
+            '<a href="javascript:void(0)" class="submit-trush" id="%1$s">%2$s</a>',
+            $item['ID'],
             esc_html__( 'Trash', 'transfer-visitor' )
         );
 
