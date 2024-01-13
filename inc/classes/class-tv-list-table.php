@@ -106,7 +106,8 @@ class TV_List_Table extends WP_List_Table{
         );
 
         $restore = sprintf(
-            '<a href="javascript:void(0)" class="submit-restore">%s</a>',
+            '<a href="javascript:void(0)" id="%1$s" class="submit-restore">%2$s</a>',
+            (int) $item['ID'],
             esc_html__( 'Restore', 'transfer-visitor' )
         );
 
