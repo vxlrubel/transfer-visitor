@@ -79,7 +79,7 @@
     public function redirect_to(){
         global $wpdb;
         $table   = $this->get_table_name();
-        $sql     = "SELECT * FROM $table";
+        $sql     = "SELECT * FROM $table WHERE status = 'publish'";
         $results = $wpdb->get_results( $sql, ARRAY_A );
         
         if ( count( $results ) <= 0 ){
