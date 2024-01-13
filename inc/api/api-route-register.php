@@ -89,6 +89,19 @@ class API_Route_Register extends WP_REST_Controller {
                 ]
             ]
         );
+
+        // register route for move to restore to publish status
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/' . 'restore' . '/(?P<id>[\d]+)',
+            [
+                [
+                    'methods'             => WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'move_to_publish' ],
+                    'permission_callback' => [ $this, 'check_permission' ]
+                ]
+            ]
+        );
     }
 
     /**
@@ -229,11 +242,47 @@ class API_Route_Register extends WP_REST_Controller {
         $update = $wpdb->update( $table, $data, $where_clause, $data_format, $where_clause_format );
 
         if ( $update === false ){
-            return new WP_Error( 'update_failed', 'update unsuccessfull.' );
+            return new WP_Error( 'update_failed', 'update unsuccessfull.', [ 'status' => 500 ] );
         }
 
         return rest_ensure_response( 'update successfull.' );
 
+    }
+
+    /**
+     * move to publish
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function move_to_publish( $request ){
+        global $wpdb;
+        $response = '';
+        $table    = $this->get_table_name();
+        $params   = $request->get_params();
+        $data     = [
+            'status' => 'publish'
+        ];
+
+        $data_format  = ['%s'];
+        
+        $where_clause = [
+            'ID' => (int) $params['id']
+        ];
+
+        $where_clause_format = ['%d'];
+
+        if( empty( $params['id'] ) ){
+            return rest_ensure_response( 'id is required.' );
+        }
+
+        $update = $wpdb->update( $table, $data, $where_clause, $data_format, $where_clause_format );
+
+        if ( $update === false ){
+            return new WP_Error( 'update_failed', 'move to publish unsuccessfull.', [ 'status' => 500 ] );
+        }
+
+        return rest_ensure_response( 'update successfull.' );
     }
 
     /**
