@@ -64,7 +64,7 @@ class TV_List_Table extends WP_List_Table{
         $trimed_data = array_slice( $data, ( $current_page - 1 ) * $items_per_page, $items_per_page );
         
         $this->is_trash = isset( $_REQUEST['status'] ) && 'trash' === $_REQUEST['status'];
-        
+
         $this->_column_headers = [ $get_columns, $get_hidden_columns, $sortable_columns ];
         $this->items = $trimed_data;
     }
@@ -259,14 +259,12 @@ class TV_List_Table extends WP_List_Table{
 
         if ( $this->is_trash ){
             $actions['restore'] = esc_html__( 'Restore', 'transfer-visitor' );
-            $actions['delete_permanently'] = esc_html__( 'Delete Parmanently', 'transfer-visitor' );
+            $actions['delete']  = esc_html__( 'Delete parmanently', 'transfer-visitor' );
         }else{
-            $actions['trash'] = esc_html__( 'Move To Trash', 'transfer-visitor' );
-            $actions['delete'] = esc_html__( 'Detete', 'transfer-visitor' );
+            $actions['trash']  = esc_html__( 'Move to trash', 'transfer-visitor' );
+            $actions['delete'] = esc_html__( 'Detete parmanently', 'transfer-visitor' );
         }
-        // $actions = [
-        //     'delete' => 'Detete',
-        // ];
+
         return $actions;
     }
 
