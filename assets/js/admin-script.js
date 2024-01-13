@@ -15,6 +15,51 @@
             this.changePopupName();
             this.deleteMultipleItems();
             this.moveToTrash();
+            this.restoreItemFromTrash();
+        }
+
+        restoreItemFromTrash(){
+            parent.on('click', 'a.submit-restore', function(e){
+                e.preventDefault();
+                let _this      = $(this);
+                let id         = parseInt(_this.attr('id'));
+                let restoreUrl = `${apiUrl}/restore/${id}`;
+
+                let headers = {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce'  : nonce
+                }
+                let data    = {
+                    id : id
+                }
+
+                $.ajax({
+                    type      : 'PATCH',
+                    url       : restoreUrl,
+                    data      : JSON.stringify(data),
+                    headers   : headers,
+                    beforeSend: ()=>{
+                        _this.text('Publishing');
+                    },
+                    success   : (response)=>{
+                        console.log(response)
+                        if ( response ){
+                            let row = _this.closest('tr');
+                            row.addClass('remove-from-list');
+                            row.fadeOut(300, ()=>{
+                                row.remove();
+                            });
+                        }
+                    },
+                    error     : (error)=>{
+                        if( error ){
+                            alert('Something went wrong.');
+                        }
+                    }
+                });
+                
+
+            });
         }
 
         moveToTrash(){
