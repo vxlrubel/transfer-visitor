@@ -200,6 +200,43 @@ class API_Route_Register extends WP_REST_Controller {
     }
 
     /**
+     * move to trash
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function move_to_trash( $request ){
+        global $wpdb;
+        $response = '';
+        $table    = $this->get_table_name();
+        $params   = $request->get_params();
+        $data     = [
+            'status' => 'trash'
+        ];
+
+        $data_format  = ['%s'];
+        
+        $where_clause = [
+            'ID' => (int) $params['id']
+        ];
+
+        $where_clause_format = ['%d'];
+
+        if( empty( $params['id'] ) ){
+            return rest_ensure_response( 'id is required.' );
+        }
+
+        $update = $wpdb->update( $table, $data, $where_clause, $data_format, $where_clause_format );
+
+        if ( $update === false ){
+            return new WP_Error( 'update_failed', 'update unsuccessfull.' );
+        }
+
+        return rest_ensure_response( 'update successfull.' );
+
+    }
+
+    /**
      * delete items through their id
      *
      * @param [type] $request
