@@ -115,16 +115,6 @@ defined('ABSPATH') || exit;
     }
 
     /**
-     * options_page
-     * this method use to display the options page
-     *
-     * @return void
-     */
-    public static function options_page(){
-      printf('<div class="wrap">%s</div>', 'Options page.');
-    }
-
-    /**
      * author information
      *
      * @return void
