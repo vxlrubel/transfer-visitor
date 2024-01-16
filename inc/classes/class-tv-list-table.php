@@ -366,8 +366,13 @@ class TV_List_Table extends WP_List_Table{
      * @return void
      */
     protected function extra_tablenav( $which ){
-
-        $action = $_SERVER['PHP_SELF'] . '?page=transfer-visitor';
+        $action         = $_SERVER['PHP_SELF'] . '?page=transfer-visitor';
+        $get_item_count = '';
+        if( ! empty( get_option( '_filering_item_count' ) ) ){
+            $get_item_count = get_option( '_filering_item_count' );
+        }else{
+            $get_item_count = 10;
+        }
         
         ?>
             <div class="alignleft actions">
@@ -375,11 +380,11 @@ class TV_List_Table extends WP_List_Table{
                 <form action="<?php echo esc_url( $action ); ?>" method="POST" class="filter-item-per-page-form">
                     <span>show</span> 
                     <select name="set_items">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
+                        <option value="10" <?php selected( $get_item_count, 10, true ); ?>>10</option>
+                        <option value="20" <?php selected( $get_item_count, 20, true ); ?>>20</option>
+                        <option value="30" <?php selected( $get_item_count, 30, true ); ?>>30</option>
+                        <option value="40" <?php selected( $get_item_count, 40, true ); ?>>40</option>
+                        <option value="50" <?php selected( $get_item_count, 50, true ); ?>>50</option>
                     </select>
                     <input type="submit" value="Filter" class="button action">
                 </form>
