@@ -51,15 +51,6 @@ class Admin_Menu{
             $this->slug_add_new,                  // menu slug
             [ $this, '_cb_add_new_page' ]         // callback
         );
-
-        add_submenu_page(
-            $this->slug_main_menu,                // parent slug
-            __( 'Options', 'transfer-visitor' ),  // page title
-            __( 'Options', 'transfer-visitor' ),  // menu title
-            'manage_options',                     // capability
-            $this->slug_setting,                  // menu slug
-            [ $this, '_cb_options' ]              // callback
-        );
     }
 
     /**
@@ -78,14 +69,5 @@ class Admin_Menu{
      */
     public function _cb_add_new_page(){
         Template::add_new_page();
-    }
-
-    /**
-     * options page callback
-     *
-     * @return void
-     */
-    public function _cb_options(){
-        Template::options_page();
     }
 }
