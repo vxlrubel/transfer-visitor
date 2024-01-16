@@ -315,6 +315,17 @@ class API_Route_Register extends WP_REST_Controller {
     }
 
     /**
+     * move to publist 
+     * this method implement for restoreing the items from trash
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function move_to_publish_multiple_items( $request ){
+        
+    }
+
+    /**
      * move to publish
      *
      * @param [type] $request
