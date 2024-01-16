@@ -106,6 +106,19 @@ class API_Route_Register extends WP_REST_Controller {
         // register route for move to restore to publish status
         register_rest_route(
             $this->namespace,
+            '/' . $this->rest_base . '/' . 'restore',
+            [
+                [
+                    'methods'             => WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'move_to_publish_multiple_items' ],
+                    'permission_callback' => [ $this, 'check_permission' ]
+                ]
+            ]
+        );
+
+        // register route for move to restore to publish status
+        register_rest_route(
+            $this->namespace,
             '/' . $this->rest_base . '/' . 'restore' . '/(?P<id>[\d]+)',
             [
                 [
