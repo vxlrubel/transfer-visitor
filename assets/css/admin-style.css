@@ -256,3 +256,11 @@ a.page-title-action span.dashicons {
 [class*="transfer-visitor-"] .remove-from-list * {
     color: white !important;
 }
+.filter-item-per-page-form {
+	display: flex;
+	align-items: center;
+}
+.filter-item-per-page-form span {
+    margin-right: 10px;
+    text-transform: capitalize;
+}
