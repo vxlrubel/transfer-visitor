@@ -186,7 +186,28 @@
 
                 // move to publish or restore from trash
                 if( 'restore' == selectValue ){
-                    alert('restore')
+                    $.ajax({
+                        type      : 'PATCH',
+                        url       : actionUrl.restore,
+                        data      : JSON.stringify( data ),
+                        headers   : headers,
+                        beforeSend: ()=>{
+                            _this.val('Loading...');
+                        },
+                        success   : (response)=>{
+                            if ( response ){
+                                _this.val(selfText);
+                                items.closest('tr').addClass('remove-from-list').fadeOut(300, ()=>{
+                                    items.closest('tr').remove();
+                                });
+                            }
+                        },
+                        error     : (error)=>{
+                            if( error ){
+                                alert('Something went wrong');
+                            }
+                        }
+                    });
                 }
                 return;
             });
