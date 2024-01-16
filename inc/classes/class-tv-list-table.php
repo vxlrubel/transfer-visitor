@@ -52,7 +52,21 @@ class TV_List_Table extends WP_List_Table{
         $sortable_columns   = $this->get_sortable_columns();
 
         // pagination
-        $items_per_page = 10;
+
+        $items_per_page = '';
+
+        if( isset( $_POST['set_items'] ) ){
+            update_option('_filering_item_count', $_POST['set_items'] );
+            $items_per_page = get_option( '_filering_item_count' );
+        }else{
+            if( ! empty( get_option( '_filering_item_count' ) ) ){
+                $items_per_page = get_option( '_filering_item_count' );
+            }else{
+                $items_per_page = 10;
+            }
+            
+        }
+
         $current_page   = $this->get_pagenum();
         $total_items    = (int) count( $data );
 
@@ -343,6 +357,34 @@ class TV_List_Table extends WP_List_Table{
             'active' => $count_publish,
             'trush'  => $count_trash,
         ];
+    }
+
+    /**
+     * extran tale nav for page item count
+     *
+     * @param [type] $which
+     * @return void
+     */
+    protected function extra_tablenav( $which ){
+
+        $action = $_SERVER['PHP_SELF'] . '?page=transfer-visitor';
+        
+        ?>
+            <div class="alignleft actions">
+                
+                <form action="<?php echo esc_url( $action ); ?>" method="POST" class="filter-item-per-page-form">
+                    <span>show</span> 
+                    <select name="set_items">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                    <input type="submit" value="Filter" class="button action">
+                </form>
+            </div>
+        <?php
     }
 
 }
