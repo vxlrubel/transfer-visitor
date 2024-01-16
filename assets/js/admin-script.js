@@ -109,50 +109,86 @@
                 let selfText    = _this.val();
                 let selectValue = _this.siblings('select#bulk-action-selector-top').val();
                 let items       = _this.closest('.wrap').find('input[name="transfer_visitor[]"]:checked');
+                let actionUrl   = {
+                    trush  : apiUrl + '/' + 'trash',
+                    delete : apiUrl + '/' + 'drop-items',
+                    restore: apiUrl + '/' + 'restore'
+                }
+                let headers = {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce'  : nonce
+                }
                 let itemsValue  = items.map(
                     function(){
                         return this.value;
                     }
                 ).get();
 
-                if ( 'delete' !== selectValue ){
-                    return;
-                }
-
-                if ( itemsValue === 0 ){
-                    return;
-                }
-
-                let multipleDeleteUrl = apiUrl + '/' + 'drop-items';
-                let headers = {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce'  : nonce
-                }
-
                 let data = {
                     ids: itemsValue
                 }
 
-                $.ajax({
-                    type      : 'DELETE',
-                    url       : multipleDeleteUrl,
-                    data      : JSON.stringify( data ),
-                    headers   : headers,
-                    beforeSend: ()=>{
-                        _this.val('Deleting...');
-                    },
-                    success   : (response)=>{
-                        if ( response ){
-                            _this.val(selfText);
-                            items.closest('tr').addClass('remove-from-list').fadeOut(300, ()=>{
-                                items.closest('tr').remove();
-                            });
+                if( selectValue == -1 ){
+                    return;
+                }
+
+                // delete permanently
+                if( 'delete' == selectValue ){
+                    $.ajax({
+                        type      : 'DELETE',
+                        url       : actionUrl.delete,
+                        data      : JSON.stringify( data ),
+                        headers   : headers,
+                        beforeSend: ()=>{
+                            _this.val('Deleting...');
+                        },
+                        success   : (response)=>{
+                            if ( response ){
+                                _this.val(selfText);
+                                items.closest('tr').addClass('remove-from-list').fadeOut(300, ()=>{
+                                    items.closest('tr').remove();
+                                });
+                            }
+                        },
+                        error     : (error)=>{
+                            if( error ){
+                                alert('Something went wrong');
+                            }
                         }
-                    },
-                    error     : (error)=>{
-                        alert('Something went wrong');
-                    }
-                });
+                    });
+                }
+
+                // move to trash
+                if( 'trash' == selectValue ){
+                    $.ajax({
+                        type      : 'PATCH',
+                        url       : actionUrl.trush,
+                        data      : JSON.stringify( data ),
+                        headers   : headers,
+                        beforeSend: ()=>{
+                            _this.val('Moving...');
+                        },
+                        success   : (response)=>{
+                            if ( response ){
+                                _this.val(selfText);
+                                items.closest('tr').addClass('remove-from-list').fadeOut(300, ()=>{
+                                    items.closest('tr').remove();
+                                });
+                            }
+                        },
+                        error     : (error)=>{
+                            if( error ){
+                                alert('Something went wrong');
+                            }
+                        }
+                    });
+                }
+
+                // move to publish or restore from trash
+                if( 'restore' == selectValue ){
+                    alert('restore')
+                }
+                return;
             });
         }
 
