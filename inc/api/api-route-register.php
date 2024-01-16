@@ -263,6 +263,45 @@ class API_Route_Register extends WP_REST_Controller {
     }
 
     /**
+     * move to trush multiple items
+     *
+     * @param [type] $request
+     * @return void
+     */
+    public function move_to_trash_multiple_items( $request ){
+        global $wpdb;
+        $response = '';
+        $table    = $this->get_table_name();
+        $params   = $request->get_params();
+        $ids      = $params['ids'];
+        $data     = [
+            'status'=> 'trash'
+        ];
+
+        $data_format         = ['%s'];
+        $where_clause_format = ['%d'];
+
+        if ( count( $ids ) === 0 ){
+            return rest_ensure_response( 'Did not found the id' );
+        }
+
+        foreach ( $ids as $id ) {
+
+            $where_clause        = [ 'ID' => (int)$id ];
+
+            $update = $wpdb->update( $table, $data, $where_clause, $data_format, $where_clause_format );
+
+            if ( $update === false ){
+                return new WP_Error( 'update_failed', 'Move to trash failed.', [ 'status'=> 500 ] );
+            }
+
+            $response = 'Move to trash successfully.';
+        }
+
+        return rest_ensure_response( $response );
+    }
+
+    /**
      * move to publish
      *
      * @param [type] $request
